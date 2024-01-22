@@ -1,22 +1,22 @@
 // pages/checkout.js
 import { useState } from "react";
-import axios from "axios";
 
 const CheckoutPage = () => {
   const [checkoutUrl, setCheckoutUrl] = useState(null);
 
-  const handleCheckout = async () => {
-    try {
-      const response = await axios.post("/api/checkout", {
-        amount: 1000, // Replace with your actual amount
-        currency: "USD", // Replace with your actual currency
-        description: "Product Purchase", // Replace with your actual description
-      });
-
-      setCheckoutUrl(response.data.checkoutUrl);
-    } catch (error) {
-      console.error("Checkout Error:", error);
-    }
+  const handleCheckout = () => {
+    fetch("/api/sumup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        checkout_reference: "ref",
+        amount: "1000",
+        currency: "EUR",
+        pay_to_email: "toto@mail.com",
+      }),
+    });
   };
 
   return (

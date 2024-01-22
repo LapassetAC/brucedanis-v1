@@ -1,7 +1,6 @@
 import client from "../../client";
 
 export default function Home({ data }) {
-  console.log(data);
   return (
     <main>
       TOTOt
