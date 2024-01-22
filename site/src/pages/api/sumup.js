@@ -1,36 +1,23 @@
-import axios from "axios";
-
 export default async function handler(req, res) {
   const { body } = req;
   // console.log(body);
   const { checkout_reference, amount, currency, pay_to_email } = req.body;
 
-  try {
-    const response = await axios.post(
-      "https://api.sumup.com/v0.1/checkouts",
-      {
-        checkout_reference,
-        amount,
-        currency,
-        pay_to_email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.SUMUP_API_KEY}`,
-        },
-      }
-    );
-    console.log(response);
-  } catch (error) {
-    console.error("SumUp API Error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+  const response = await fetch("https://api.sumup.com/v0.1/checkouts", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.SUMUP_API_KEY}`,
+    },
+    body: {
+      checkout_reference: checkout_reference,
+      amount: amount,
+      currency: currency,
+      pay_to_email: pay_to_email,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
-
-  // fetch("https://api.sumup.com/v0.1/checkouts", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: req.body
-  // });
+  const data = await response.json();
+  console.log(data);
 }
