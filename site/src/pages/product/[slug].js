@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import sanityClient from "../../utils/sanityClient";
+import PaymentForm from "@/components/PaymentForm";
 
 export async function getStaticPaths() {
   const paths = await sanityClient.fetch(
@@ -31,11 +32,10 @@ export async function getStaticProps(context) {
 }
 
 const Product = ({ product }) => {
-  const router = useRouter();
-
   return (
     <article>
       <h1>{product?.title}</h1>
+      <PaymentForm></PaymentForm>
     </article>
   );
 };
