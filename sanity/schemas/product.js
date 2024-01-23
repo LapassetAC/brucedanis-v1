@@ -9,5 +9,14 @@ export default {
       type: 'string',
       validation: (Rule) => Rule.required(),
     },
+    {
+      name: 'slug',
+      title: 'URL du projet',
+      type: 'slug',
+      validation: (Rule) => Rule.required(),
+      options: {
+        source: 'title',
+      },
+    },
   ],
 }

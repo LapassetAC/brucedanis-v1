@@ -1,8 +1,6 @@
-// pages/checkout.js
 import { useState } from "react";
 
 export async function getServerSideProps() {
-  // Fetch data from external API
   const res = await fetch("https://api.sumup.com/v0.1/checkouts", {
     method: "POST",
     headers: {
@@ -18,7 +16,6 @@ export async function getServerSideProps() {
   });
   const data = await res.json();
   console.log(data);
-  // Pass data to the page via props
   return { props: { data } };
 }
 
