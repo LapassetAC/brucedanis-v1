@@ -1,6 +1,9 @@
 import sanityClient from "../utils/sanityClient";
-import Image from "next/image";
-import { useNextSanityImage } from "next-sanity-image";
+import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
+import theme from "@/styles/theme";
+import GlobalStyle from "@/styles/globalStyle";
+import Illustration from "@/components/home/Illustration";
 
 export async function getStaticProps() {
   const query = `
@@ -15,7 +18,6 @@ export async function getStaticProps() {
       }
     }
   `;
-  // const query = `*[_type == "product"]`;
   const data = await sanityClient.fetch(query);
   return {
     props: {
@@ -24,23 +26,26 @@ export async function getStaticProps() {
   };
 }
 
+const StyledIllustrationsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 15px;
+  @media ${(props) => props.theme.minWidth.lg} {
+    grid-gap: 30px;
+  }
+`;
+
 export default function Home({ data }) {
   return (
-    <main>
-      Bruce d'Anis
-      {data.map((product) => {
-        const imageProps = useNextSanityImage(sanityClient, product.mainImage);
-        return (
-          <a key={product?.title} href={"product/" + product?.slug.current}>
-            <Image
-              {...imageProps}
-              style={{ maxWidth: "100%", height: "auto" }}
-              placeholder="blur"
-              blurDataURL={product.mainImage.asset.metadata.lqip}
-            />
-          </a>
-        );
-      })}
-    </main>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <main>
+        <StyledIllustrationsContainer>
+          {data.map((illustrationData) => {
+            return <Illustration data={illustrationData} />;
+          })}
+        </StyledIllustrationsContainer>
+      </main>
+    </ThemeProvider>
   );
 }
