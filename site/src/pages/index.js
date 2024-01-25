@@ -28,10 +28,9 @@ export async function getStaticProps() {
 }
 
 const StyledIllustrationsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-gap: 15px;
-  @media ${(props) => props.theme.minWidth.lg} {
+  @media ${(props) => props.theme.minWidth.sm} {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     grid-gap: 30px;
   }
 `;
