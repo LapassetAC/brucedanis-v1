@@ -10,6 +10,7 @@ export async function getStaticProps() {
    *[_type == "product"] {
       title,
       slug,
+      position,
       mainImage {
         asset->{
           ...,
@@ -42,7 +43,12 @@ export default function Home({ data }) {
       <main>
         <StyledIllustrationsContainer>
           {data.map((illustrationData) => {
-            return <Illustration data={illustrationData} />;
+            return (
+              <Illustration
+                key={illustrationData.title}
+                data={illustrationData}
+              />
+            );
           })}
         </StyledIllustrationsContainer>
       </main>

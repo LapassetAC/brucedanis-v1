@@ -1,3 +1,3 @@
-import product from './product'
+import illustration from './illustration'
 
-export const schemaTypes = [product]
+export const schemaTypes = [illustration]

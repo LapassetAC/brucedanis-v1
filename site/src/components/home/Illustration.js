@@ -4,19 +4,17 @@ import { useNextSanityImage } from "next-sanity-image";
 import sanityClient from "@/utils/sanityClient";
 
 const StyledContainer = styled.a`
-  grid-column: 1 / 4;
-  grid-row: 1 / 3;
+  grid-column: ${({ position }) =>
+    position.columnStart + "/" + position.columnEnd};
+  grid-row: ${({ position }) => position.rowStart + "/" + position.rowEnd};
 `;
 
 export default function Illustration({ data }) {
-  const { title, mainImage, slug } = data;
+  const { title, mainImage, slug, position } = data;
   const imageProps = useNextSanityImage(sanityClient, mainImage);
 
   return (
-    <StyledContainer
-      href={`product/${slug.current}`}
-      // gridColumn={}
-    >
+    <StyledContainer href={`product/${slug.current}`} position={position}>
       <Image
         {...imageProps}
         style={{ maxWidth: "100%", height: "auto" }}
