@@ -11,12 +11,19 @@ export default {
     },
     {
       name: 'slug',
-      title: 'URL du projet',
+      title: "URL de la page de l'illustration",
       type: 'slug',
       validation: (Rule) => Rule.required(),
       options: {
         source: 'title',
       },
+    },
+    {
+      name: 'mainImage',
+      title: 'Illustration principale',
+      description: "Image de l'illustration visible sur la page d'accueil",
+      type: 'image',
+      validation: (Rule) => Rule.required(),
     },
   ],
 }
